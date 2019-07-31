@@ -30,6 +30,7 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- ########################## 热部署用到的start ###################### -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -39,6 +40,14 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
+        <!-- ############################### 热部署用到的end ################### -->
+        <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>4.1.38.Final</version>
+        </dependency>
+
     </dependencies>
 
     <build>
