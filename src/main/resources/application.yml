@@ -3,3 +3,10 @@ server:
 spring:
   resources:
     static-locations: classpath:/templates/,classpath:/static/
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/resources
+  thymeleaf:
+    cache: false
+    mode: LEGACYHTML5
