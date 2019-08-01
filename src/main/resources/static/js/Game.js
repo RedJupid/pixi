@@ -1,26 +1,24 @@
 (function () {
-    let Game = window.Game2 = function () {
+    let Game = window.Game = function () {
         this.resUrl = "./res.json";//资源路径
+        let that = this;
         // this.init();
         this.load(function () {
-            // this.start();
+            that.start();
         });
     }
-
-    Game.prototype.init = function () {
-        window.app = new PIXI.Application({width: 600, height: 520});
-        document.body.appendChild(app.view);
-    }
-
     Game.prototype.start = function(){
         console.log("All files loaded");
         window.app = new PIXI.Application({width: 600, height: 520});
         document.body.appendChild(app.view);
-        let land = new PIXI.Sprite(
-            PIXI.Loader.shared.resources["land"].texture
-        );
-        app.stage.addChild(land);
+        // let land = new PIXI.Sprite(
+        //     PIXI.Loader.shared.resources["land"].texture
+        // );
+        // app.stage.addChild(land);
+        let land = new Land();
+        land.render();
     }
+
 
     Game.prototype.load = function(callback){
         //发出请求，请求JSON文件
@@ -40,12 +38,12 @@
                 }
                 function setup() {
                     console.log("All files loaded");
-                    window.app = new PIXI.Application({width: 600, height: 520});
-                    document.body.appendChild(app.view);
-                    let land = new PIXI.Sprite(
-                        PIXI.Loader.shared.resources["land"].texture
-                    );
-                    app.stage.addChild(land);
+                    // window.app = new PIXI.Application({width: 600, height: 520});
+                    // document.body.appendChild(app.view);
+                    // let land = new PIXI.Sprite(
+                    //     PIXI.Loader.shared.resources["land"].texture
+                    // );
+                    // app.stage.addChild(land);
                     callback();
 
                 }
