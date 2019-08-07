@@ -8,15 +8,21 @@
         });
     }
     Game.prototype.start = function(){
-        console.log("All files loaded");
         window.app = new PIXI.Application({width: 600, height: 520});
         document.body.appendChild(app.view);
-        // let land = new PIXI.Sprite(
-        //     PIXI.Loader.shared.resources["land"].texture
-        // );
-        // app.stage.addChild(land);
         let land = new Land();
         land.render();
+        let player = new Player();
+        player.render();
+        app.ticker.add(delta => gameLoop(delta));
+        function gameLoop(delta){
+
+            //Move the cat 1 pixel
+            // player.player.x+=1;
+            // player.render();
+            player.player.x+=player.vx;
+            player.player.y+=player.vy;
+        }
     }
 
 
@@ -38,14 +44,7 @@
                 }
                 function setup() {
                     console.log("All files loaded");
-                    // window.app = new PIXI.Application({width: 600, height: 520});
-                    // document.body.appendChild(app.view);
-                    // let land = new PIXI.Sprite(
-                    //     PIXI.Loader.shared.resources["land"].texture
-                    // );
-                    // app.stage.addChild(land);
                     callback();
-
                 }
             }
         }
