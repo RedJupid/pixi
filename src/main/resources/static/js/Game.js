@@ -6,24 +6,33 @@
         this.load(function () {
             that.start();
         });
-    }
+    };
     Game.prototype.start = function(){
-        window.app = new PIXI.Application({width: 600, height: 520});
+        window.app = new PIXI.Application({width: 640, height: 560});
         document.body.appendChild(app.view);
         let land = new Land();
-        land.render();
         let player = new Player();
-        player.render();
+        player.addListen();
+        let wall = new Wall(200,300);
         app.ticker.add(delta => gameLoop(delta));
         function gameLoop(delta){
+            app.stage.children.sort(function(a,b) {
+                if (a.yy > b.yy) return 1;
+                if (a.yy < b.yy) return -1;
+                if (a.xx> b.xx) return 1;
+                if (a.xx < b.xx) return -1;
+                return 0;
+            });
 
             //Move the cat 1 pixel
             // player.player.x+=1;
             // player.render();
             player.player.x+=player.vx;
+            player.player.xx = player.player.x
             player.player.y+=player.vy;
+            player.player.yy = player.player.y
         }
-    }
+    };
 
 
     Game.prototype.load = function(callback){

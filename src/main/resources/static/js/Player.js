@@ -5,6 +5,15 @@
         this.player = new PIXI.Sprite(
             PIXI.Loader.shared.resources["role1_1_1"].texture
         );
+        this.player.xx = 23;
+        this.player.yy = 58;
+        app.stage.addChild(this.player);
+    };
+    Player.prototype.getp = function(){
+        console.log(this.player.position.x+","+this.player.position.y);
+    };
+
+    Player.prototype.addListen = function () {
         let left = keyboard(37),
             up = keyboard(38),
             right = keyboard(39),
@@ -93,8 +102,6 @@
         }
     }
 
-    Player.prototype.render = function () {
-        app.stage.addChild(this.player);
-    }
+
 
 })();

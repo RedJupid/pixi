@@ -1,13 +1,15 @@
 (function(){
     let Land = window.Land = function(){
 
-    }
-
-    Land.prototype.render = function(){
-        let land = new PIXI.Sprite(
+        this.land = new PIXI.Sprite(
             PIXI.Loader.shared.resources["land"].texture
         );
-        app.stage.addChild(land);
+        this.land.x = 40;
+        this.land.y = 40;
+        this.land.xx = 0;
+        this.land.yy = 0;
+        app.stage.addChild(this.land);
     }
+
 
 })();
