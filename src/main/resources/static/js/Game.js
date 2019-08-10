@@ -13,7 +13,7 @@
         let land = new Land();
         let player = new Player();
         player.addListen();
-        let wall = new Wall(200,300);
+        let wall = new Wall(4,8);
         app.ticker.add(delta => gameLoop(delta));
         function gameLoop(delta){
             app.stage.children.sort(function(a,b) {
@@ -28,9 +28,9 @@
             // player.player.x+=1;
             // player.render();
             player.player.x+=player.vx;
-            player.player.xx = player.player.x
+            player.player.xx +=player.vx;
             player.player.y+=player.vy;
-            player.player.yy = player.player.y
+            player.player.yy +=player.vy;
         }
     };
 

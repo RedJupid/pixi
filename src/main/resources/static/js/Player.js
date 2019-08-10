@@ -2,13 +2,34 @@
     let Player = window.Player = function () {
         this.vx = 0;
         this.vy = 0;
-        this.player = new PIXI.Sprite(
-            PIXI.Loader.shared.resources["role1_1_1"].texture
-        );
+        this.textures = this.getTextures();
+        //创建动画精灵
+        this.player = new PIXI.AnimatedSprite(this.textures[3]);
+        //设置动画精灵的速度
+        this.player.animationSpeed=0.1;
+
+        // this.player = new PIXI.Sprite(
+        //     PIXI.Loader.shared.resources["role1_1_1"].texture
+        // );
         this.player.xx = 23;
         this.player.yy = 58;
         app.stage.addChild(this.player);
     };
+
+    Player.prototype.getTextures = function(){
+        let t = new Array(4);
+        for (let i=0;i<4;i++){
+            t[i] = new Array(4);
+        }
+        for (let i=0;i<4;i++){
+            for(let j=0;j<4;j++){
+                t[i][j] = PIXI.Loader.shared.resources["role1_"+(i+1)+"_"+(j+1)].texture;
+            }
+        }
+        return t;
+    };
+
+
     Player.prototype.getp = function(){
         console.log(this.player.position.x+","+this.player.position.y);
     };
@@ -21,6 +42,8 @@
         left.press = ()=>{
             this.vx = -3;
             this.vy = 0;
+            this.player.textures = this.textures[0];
+            this.player.gotoAndPlay(1);
         };
         left.release = () => {
             //If the left arrow has been released, and the right arrow isn't down,
@@ -29,38 +52,48 @@
             if (!right.isDown && this.vy === 0) {
                 this.vx = 0;
             }
+            this.player.gotoAndStop(0);
         };
         //Up
         up.press = () => {
             this.vy = -3;
             this.vx = 0;
+            this.player.textures = this.textures[1];
+            this.player.gotoAndPlay(1);
         };
         up.release = () => {
             if (!down.isDown && this.vx === 0) {
                 this.vy = 0;
             }
+            this.player.gotoAndStop(0);
         };
 
         //Right
         right.press = () => {
             this.vx = 3;
             this.vy = 0;
+            this.player.textures = this.textures[2];
+            this.player.gotoAndPlay(1);
         };
         right.release = () => {
             if (!left.isDown && this.vy === 0) {
                 this.vx = 0;
             }
+            this.player.gotoAndStop(0);
         };
 
         //Down
         down.press = () => {
             this.vy = 3;
             this.vx = 0;
+            this.player.textures = this.textures[3];
+            this.player.gotoAndPlay(1);
         };
         down.release = () => {
             if (!up.isDown && this.vx === 0) {
                 this.vy = 0;
             }
+            this.player.gotoAndStop(0);
         };
 
 
