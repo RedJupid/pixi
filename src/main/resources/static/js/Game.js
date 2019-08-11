@@ -27,6 +27,37 @@
             //Move the cat 1 pixel
             // player.player.x+=1;
             // player.render();
+            let directions = player.directions;
+            if (directions.length>0){
+                let dic = directions[directions.length-1];
+                if (dic==0){
+                    player.vx=-3;
+                    player.vy=0;
+                    player.player.textures = player.textures[0];
+                }else if (dic == 1){
+                    player.vx = 0;
+                    player.vy = -3;
+                    player.player.textures = player.textures[1];
+                }else if (dic == 2){
+                    player.vx = 3;
+                    player.vy = 0;
+                    player.player.textures = player.textures[2];
+                }else if (dic ==3){
+                    player.vx = 0;
+                    player.vy = 3;
+                    player.player.textures = player.textures[3];
+                }
+                if (player.needUpdateStatus()){
+                    player.player.gotoAndPlay(1);
+                }
+            }else{
+                player.vx = 0;
+                player.vy = 0;
+                if (player.needUpdateStatus()){
+                    player.player.gotoAndStop(0);
+                }
+
+            }
             player.player.x+=player.vx;
             player.player.xx +=player.vx;
             player.player.y+=player.vy;

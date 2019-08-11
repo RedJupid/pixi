@@ -2,6 +2,8 @@
     let Player = window.Player = function () {
         this.vx = 0;
         this.vy = 0;
+        this.lastDirections = [];
+        this.directions = [];
         this.textures = this.getTextures();
         //创建动画精灵
         this.player = new PIXI.AnimatedSprite(this.textures[3]);
@@ -18,21 +20,23 @@
 
     Player.prototype.getTextures = function(){
         let t = new Array(4);
+
         for (let i=0;i<4;i++){
-            t[i] = new Array(4);
-        }
-        for (let i=0;i<4;i++){
+            t[i] = new Array();
             for(let j=0;j<4;j++){
-                t[i][j] = PIXI.Loader.shared.resources["role1_"+(i+1)+"_"+(j+1)].texture;
+                if(j==2){
+                    t[i].push(PIXI.Loader.shared.resources["role1_"+(i+1)+"_1"].texture);
+                }else{
+                    t[i].push(PIXI.Loader.shared.resources["role1_"+(i+1)+"_"+(j+1)].texture);
+                }
+            }
+            for(let j=0;j<4;j++){
+                t[i].push(PIXI.Loader.shared.resources["role1_"+(i+1)+"_"+(j+1)].texture);
             }
         }
         return t;
     };
 
-
-    Player.prototype.getp = function(){
-        console.log(this.player.position.x+","+this.player.position.y);
-    };
 
     Player.prototype.addListen = function () {
         let left = keyboard(37),
@@ -40,60 +44,76 @@
             right = keyboard(39),
             down = keyboard(40);
         left.press = ()=>{
-            this.vx = -3;
-            this.vy = 0;
-            this.player.textures = this.textures[0];
-            this.player.gotoAndPlay(1);
+            // this.vx = -3;
+            // this.vy = 0;
+            this.lastDirections = this.directions.slice();
+            this.directions.push(0);
+            // this.player.textures = this.textures[0];
+            // this.player.gotoAndPlay(1);
         };
         left.release = () => {
             //If the left arrow has been released, and the right arrow isn't down,
             //and the cat isn't moving vertically:
             //Stop the cat
-            if (!right.isDown && this.vy === 0) {
-                this.vx = 0;
-            }
-            this.player.gotoAndStop(0);
+            // if (!right.isDown && this.vy === 0) {
+            //     this.vx = 0;
+            // }
+            this.lastDirections = this.directions.slice();
+            this.moveDirection(0);
+            // this.player.gotoAndStop(0);
         };
         //Up
         up.press = () => {
-            this.vy = -3;
-            this.vx = 0;
-            this.player.textures = this.textures[1];
-            this.player.gotoAndPlay(1);
+            // this.vy = -3;
+            // this.vx = 0;
+            this.lastDirections = this.directions.slice();
+            this.directions.push(1);
+            // this.player.textures = this.textures[1];
+            // this.player.gotoAndPlay(1);
         };
         up.release = () => {
-            if (!down.isDown && this.vx === 0) {
-                this.vy = 0;
-            }
-            this.player.gotoAndStop(0);
+            // if (!down.isDown && this.vx === 0) {
+            //     this.vy = 0;
+            // }
+            this.lastDirections = this.directions.slice();
+            this.moveDirection(1);
+            // this.player.gotoAndStop(0);
         };
 
         //Right
         right.press = () => {
-            this.vx = 3;
-            this.vy = 0;
-            this.player.textures = this.textures[2];
-            this.player.gotoAndPlay(1);
+            // this.vx = 3;
+            // this.vy = 0;
+            this.lastDirections = this.directions.slice();
+            this.directions.push(2);
+            // this.player.textures = this.textures[2];
+            // this.player.gotoAndPlay(1);
         };
         right.release = () => {
-            if (!left.isDown && this.vy === 0) {
-                this.vx = 0;
-            }
-            this.player.gotoAndStop(0);
+            // if (!left.isDown && this.vy === 0) {
+            //     this.vx = 0;
+            // }
+            this.lastDirections = this.directions.slice();
+            this.moveDirection(2);
+            // this.player.gotoAndStop(0);
         };
 
         //Down
         down.press = () => {
-            this.vy = 3;
-            this.vx = 0;
-            this.player.textures = this.textures[3];
-            this.player.gotoAndPlay(1);
+            // this.vy = 3;
+            // this.vx = 0;
+            this.lastDirections = this.directions.slice();
+            this.directions.push(3);
+            // this.player.textures = this.textures[3];
+            // this.player.gotoAndPlay(1);
         };
         down.release = () => {
-            if (!up.isDown && this.vx === 0) {
-                this.vy = 0;
-            }
-            this.player.gotoAndStop(0);
+            // if (!up.isDown && this.vx === 0) {
+            //     this.vy = 0;
+            // }
+            this.lastDirections = this.directions.slice();
+            this.moveDirection(3);
+            // this.player.gotoAndStop(0);
         };
 
 
@@ -135,6 +155,27 @@
         }
     }
 
+    Player.prototype.moveDirection = function (direction) {
+        for (let i=0;i<this.directions.length;i++){
+            if (this.directions[i]==direction){
+                this.directions.splice(i,1);
+            }
+        }
+    }
+
+    Player.prototype.needUpdateStatus = function(){
+        if (this.lastDirections.length==0 && this.directions.length==0){
+            return false;
+        }else if (this.lastDirections.length==0 || this.directions.length==0){
+            return true;
+        }else{
+            if(this.lastDirections[this.lastDirections.length-1]==this.directions[this.directions.length-1]){
+                return false;
+            }else{
+                return true;
+            }
+        }
+    }
 
 
 })();
