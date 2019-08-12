@@ -4,6 +4,7 @@
         this.vy = 0;
         this.lastDirections = [];
         this.directions = [];
+        this.flag = false;
         this.textures = this.getTextures();
         //创建动画精灵
         this.player = new PIXI.AnimatedSprite(this.textures[3]);
@@ -164,15 +165,11 @@
     }
 
     Player.prototype.needUpdateStatus = function(){
-        if (this.lastDirections.length==0 && this.directions.length==0){
-            return false;
-        }else if (this.lastDirections.length==0 || this.directions.length==0){
-            return true;
-        }else{
-            if(this.lastDirections[this.lastDirections.length-1]==this.directions[this.directions.length-1]){
-                return false;
-            }else{
+        if (this.lastDirections.length!==0 && this.directions.length!==0){
+            if (this.lastDirections[this.lastDirections.length-1]!==this.directions[this.directions.length-1]) {
                 return true;
+            }else{
+                return false;
             }
         }
     }
