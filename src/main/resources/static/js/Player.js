@@ -4,6 +4,7 @@
         this.vy = 0;
         this.lastDirections = [];
         this.directions = [];
+        this.direction = 4;
         this.flag = false;
         this.textures = this.getTextures();
         //创建动画精灵
