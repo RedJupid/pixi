@@ -24,45 +24,37 @@
                 return 0;
             });
 
-            //Move the cat 1 pixel
-            // player.player.x+=1;
-            // player.render();
             let directions = player.directions;
             if (directions.length>0){
                 let dic = directions[directions.length-1];
                 if (dic===0){
                     player.vx=-3;
                     player.vy=0;
-                    // player.player.textures = player.textures[0];
-                    // player.player.gotoAndPlay(1);
                 }else if (dic === 1){
                     player.vx = 0;
                     player.vy = -3;
-                    // player.player.textures = player.textures[1];
-                    // player.player.gotoAndPlay(1);
                 }else if (dic === 2){
                     player.vx = 3;
                     player.vy = 0;
-                    // player.player.textures = player.textures[2];
-                    // player.player.gotoAndPlay(1);
                 }else if (dic === 3){
                     player.vx = 0;
                     player.vy = 3;
-                    // player.player.textures = player.textures[3];
-                    // player.player.gotoAndPlay(1);
                 }
                 if (player.direction!=dic){
                     player.player.textures = player.textures[dic];
                     player.player.gotoAndPlay(1);
                     player.direction = dic;
                 }
-                player.flag = true;
+                // player.flag = true;
             }else{
                 player.vx = 0;
                 player.vy = 0;
                 player.direction = 4;
-                if (player.flag){
-                    player.flag = false;
+                // if (player.flag){
+                //     player.flag = false;
+                //     player.player.gotoAndStop(0);
+                // }
+                if (player.player.playing){
                     player.player.gotoAndStop(0);
                 }
             }
@@ -87,8 +79,8 @@
                     .on("progress", loadProgressHandler)
                     .load(setup);
                 function loadProgressHandler(loader, resource) {
-                    console.log("loading: " + resource.url);
-                    console.log("progress: " + loader.progress + "%");
+                    // console.log("loading: " + resource.url);
+                    // console.log("progress: " + loader.progress + "%");
                 }
                 function setup() {
                     console.log("All files loaded");

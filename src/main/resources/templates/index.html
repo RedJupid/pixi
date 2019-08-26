@@ -11,12 +11,14 @@
 <script src="/js/Land.js"></script>
 <script src="/js/Player.js"></script>
 <script src="/js/Wall.js"></script>
+<script src="/js/Connect.js"></script>
 <script type="text/javascript">
     let type = "WebGL"
     if(!PIXI.utils.isWebGLSupported()){
         type = "canvas"
     }
-    PIXI.utils.sayHello(type)
+    PIXI.utils.sayHello(type);
+    let con = new Connect();
     let game = new Game();
 </script>
 </html>
