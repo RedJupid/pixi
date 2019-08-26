@@ -4,8 +4,10 @@
     <meta charset="utf-8">
     <title>Title</title>
     <script src="/js/lib/pixi.js"></script>
+    <script src="/js/lib/jquery.js"></script>
 </head>
 <body>
+<input id="btn_start" type="button" value="开始">
 </body>
 <script src="/js/Game.js"></script>
 <script src="/js/Land.js"></script>
@@ -20,5 +22,8 @@
     PIXI.utils.sayHello(type);
     let con = new Connect();
     let game = new Game();
+    $("#btn_start").click(function(){
+       con.socket.send("start");
+    });
 </script>
 </html>

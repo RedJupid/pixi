@@ -18,6 +18,10 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextW
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) throws Exception {
         System.out.println("收到消息："+msg.text());
+        String sMsg = msg.text();
+        if (sMsg.equals("start")){
+
+        }
 
         //读取收到的信息写回到客户端
         ctx.channel().writeAndFlush(new TextWebSocketFrame("服务器时间: " + new Date().toString()));
